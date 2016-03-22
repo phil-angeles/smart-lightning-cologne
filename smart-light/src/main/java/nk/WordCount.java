@@ -20,7 +20,10 @@ package nk;
 
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.api.java.io.CsvReader;
+import org.apache.flink.api.java.operators.DataSource;
 import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.java.tuple.Tuple13;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.util.Collector;
 
@@ -49,23 +52,19 @@ public class WordCount {
 		final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
 		// get input data
-		DataSet<String> text = env.fromElements(
-				"To be, or not to be,--that is the question:--",
-				"Whether 'tis nobler in the mind to suffer",
-				"The slings and arrows of outrageous fortune",
-				"Or to take arms against a sea of troubles,"
-				);
+		CsvReader csvReader = env.readCsvFile(WordCount.class.getResource("/cologne_data.csv").toString());
+		csvReader.ignoreFirstLine();
 
-		DataSet<Tuple2<String, Integer>> counts =
-				// split up the lines in pairs (2-tuples) containing: (word,1)
-				text.flatMap(new LineSplitter())
-				// group by the tuple field "0" and sum up tuple field "1"
-				.groupBy(0)
-				.sum(1);
-
-		// execute and print result
-		counts.print();
-
+		DataSource<Tuple13<String, String, String, Double, Double, String, 
+					String, String, String, String, String, String, String> > dataSource = 
+				csvReader.types(String.class, String.class, String.class, Double.class, 
+								Double.class, String.class, String.class, String.class, 
+								String.class, String.class, String.class, String.class, String.class);
+//		dataSource.max(4).print(); //  	 (Y)
+//		dataSource.min(4).print(); // 836.601818791716   (Y)
+//		dataSource.max(3).print(); // 25520.067777469932 (X)
+//		dataSource.min(3).print(); // 3553.599309083569  (X)
+//testtestabcdefgdgsdfa
 	}
 
 	//
