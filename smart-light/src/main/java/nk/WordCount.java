@@ -1,30 +1,17 @@
 package nk;
 
-/**
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.io.CsvReader;
 import org.apache.flink.api.java.operators.DataSource;
-import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple13;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.client.FlinkYarnSessionCli;
+import org.apache.flink.optimizer.plan.FlinkPlan;
+import org.apache.flink.runtime.FlinkActor;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.util.Collector;
 
 /**
@@ -46,8 +33,9 @@ public class WordCount {
 	//	Program
 	//
 
+	
+	
 	public static void main(String[] args) throws Exception {
-
 		// set up the execution environment
 		final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
@@ -55,16 +43,37 @@ public class WordCount {
 		CsvReader csvReader = env.readCsvFile(WordCount.class.getResource("/cologne_data.csv").toString());
 		csvReader.ignoreFirstLine();
 
-		DataSource<Tuple13<String, String, String, Double, Double, String, 
-					String, String, String, String, String, String, String> > dataSource = 
+
+		/** ID Feldname Beispielwert
+		 *
+		 * 0 timestamp 21601000				geht von 21601000
+		 * 										 bis 22100000
+		 * 1 vehicle-id 34652_34652_352_0
+		 * 2 vehicle-type pkw
+		 * 3 location-x 20464.451731775236	geht von 3553.599309083569
+		 * 										 bis 25520.067777469932
+		 * 4 location-y 14788.902214063552  geht von 836.601818791716
+		 * 										 bis 31921.914833250783
+		 * 5 speed 0.0
+		 * 6 fuel-consumption 0.23988551336146274
+		 * 7 co2-emission 601.6927777777778
+		 * 8 co-emission 6.37156111111111
+		 * 9 hc-emission 0.34941999999999995
+		 * 10 noise-emission 55.94027641010836
+		 * 11 nox-emission 0.83951
+		 * 12 pmx-emission 0.02126148611111111
+		 */
+		DataSet<Tuple13<String, String, String, Double, Double, Double, 
+					Double, Double, Double, Double, Double, Double, Double> > dataSet = 
 				csvReader.types(String.class, String.class, String.class, Double.class, 
-								Double.class, String.class, String.class, String.class, 
-								String.class, String.class, String.class, String.class, String.class);
-//		dataSource.max(4).print(); //  	 (Y)
-//		dataSource.min(4).print(); // 836.601818791716   (Y)
-//		dataSource.max(3).print(); // 25520.067777469932 (X)
-//		dataSource.min(3).print(); // 3553.599309083569  (X)
-//testtestabcdefgdgsdfa
+								Double.class, Double.class, Double.class, Double.class, 
+								Double.class, Double.class, Double.class, Double.class, Double.class);
+		dataSet.max(4).print();
+		dataSet.min(4).print(); 
+		dataSet.max(3).print(); 
+		dataSet.min(3).print(); 
+		dataSet.min(0).print(); 
+		dataSet.max(0).print();			
 	}
 
 	//
