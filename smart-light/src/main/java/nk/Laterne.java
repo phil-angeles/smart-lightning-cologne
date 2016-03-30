@@ -24,10 +24,10 @@ public class Laterne {
 	public static List<Laterne> erzeugeLaternen(){
 		List<Laterne> laternenListe = new ArrayList<>();
 		
-		for(int index = 0; index < 100; index++){
+		for(int index = 0; index < 6000; index++){
 			Laterne laterne = new Laterne();
 			laterne.setStatus(true);
-			laterne.setVerbrauch(50.0);
+			laterne.setVerbrauch(22.0);
 			laterne.setX(randomWithRange(MIN_X, MAX_X));
 			laterne.setY(randomWithRange(MIN_Y, MAX_Y));
 			
