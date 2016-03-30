@@ -1,0 +1,9 @@
+5.72,50.15,7.80,51.38
+ID: 62578
+
+ docker run --rm -t -i -v "$PWD/daten:/daten" --entrypoint osmconvert farberg/openstreetmap-osmosis-docker daten/koel
+n.osm.pbf -B=daten/Cologne.poly
+
+		 * xy max = lat 51.101389 lon 7.114928
+		 * xy 0 0 = lat 50.808098 lon 6.764514
+		 * xy min = lat 50,815784 lon 6,813308
