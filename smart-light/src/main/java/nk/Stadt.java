@@ -1,9 +1,13 @@
 package nk;
 
+import java.util.concurrent.ExecutionException;
+
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.io.CsvReader;
 import org.apache.flink.api.java.tuple.Tuple13;
+
+import com.google.common.cache.LoadingCache;
 
 public class Stadt {
 	
@@ -30,6 +34,18 @@ public class Stadt {
 		//falls JA --> Laterne anmachen
 		//DIe Laternen durch den Stream schieben und auf Match abfragen		
 				
-		
+		//cache
+		LoadingCache<Integer, Laterne> laternenCache = LaternenCache.getLoadingCache();
+		System.out.println(laternenCache.size());
+		try {
+			for(int index = 1; index < laternenCache.size(); index++){
+				System.out.println("LaternenID : " + laternenCache.get(index).getLaternenID());		
+				System.out.println("X : " + laternenCache.get(index).getX());			
+				System.out.println("X : " + laternenCache.get(index).getY());		
+			}
+		} catch (ExecutionException e) {
+			System.out.println("Exception");
+			e.printStackTrace();
+		}
 	}
 }
