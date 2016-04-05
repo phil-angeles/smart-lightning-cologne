@@ -1,8 +1,5 @@
 package nk;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.io.CsvReader;
@@ -25,16 +22,14 @@ public class Stadt {
 						Double.class, Double.class, Double.class, Double.class, 
 						Double.class, Double.class, Double.class, Double.class, Double.class);
 		
-		//laternen
-		List<Laterne> laternenListe = new ArrayList<>();
+		//Ausgangslage: an 6000 Stellen in der Stadt, haben wir Laternen.
+		//Stream von Positionsdaten der Autos kommt rein ... dann muss abgefragt werden ob die in der Nähe der Laternen ein Auto vorbeifährt ...
+		//Daten über Socket
 		
-		laternenListe = Laterne.erzeugeLaternen();
+		//x und y der Autos sind f3 und f4
+		//falls JA --> Laterne anmachen
+		//DIe Laternen durch den Stream schieben und auf Match abfragen		
+				
 		
-		for(int index = 0; index < laternenListe.size(); index++){
-			Laterne laterne = laternenListe.get(index);
-			System.out.println("Laterne " + index);
-			System.out.println("X : " + laterne.getX());
-			System.out.println("Y : " + laterne.getY());
-		}
 	}
 }
