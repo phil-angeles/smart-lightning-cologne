@@ -38,7 +38,7 @@ public class LaternenCache {
 	  
 	  private static Map<Integer, Laterne> getLaterneByID(){
 		  laternenListe = Laterne.erzeugeLaternen();
-		  
+		  System.out.println("durchlaufen getLaterneID");
 		  return laternenListe;
 	  }
 	  

@@ -34,6 +34,7 @@ public class Stadt {
 		//falls JA --> Laterne anmachen
 		//DIe Laternen durch den Stream schieben und auf Match abfragen		
 				
+		//cache
 		LoadingCache<Integer, Laterne> laternenCache = LaternenCache.getLoadingCache();
 		System.out.println(laternenCache.size());
 		try {
