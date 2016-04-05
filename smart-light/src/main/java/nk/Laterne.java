@@ -1,12 +1,15 @@
 package nk;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Laterne {
 	/*
 	 * Attribute
 	*/
+	private int laternenID;
 	private double x;
 	private double y;
 	private double verbrauch;
@@ -21,8 +24,9 @@ public class Laterne {
 	/*
 	 * Erzeuge Laternen mit zufaelligen x,y
 	 */
-	public static List<Laterne> erzeugeLaternen(){
-		List<Laterne> laternenListe = new ArrayList<>();
+	public static Map<Integer, Laterne> erzeugeLaternen(){
+		Map<Integer, Laterne> laternenListe = new HashMap<>();
+		Integer zaehler = 1;
 		
 		for(int index = 0; index < 6000; index++){
 			Laterne laterne = new Laterne();
@@ -31,7 +35,8 @@ public class Laterne {
 			laterne.setX(randomWithRange(MIN_X, MAX_X));
 			laterne.setY(randomWithRange(MIN_Y, MAX_Y));
 			
-			laternenListe.add(laterne);
+			laternenListe.put(zaehler.intValue(), laterne);
+			zaehler++;
 		}
 		return laternenListe;
 	}
@@ -84,6 +89,14 @@ public class Laterne {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public int getLaternenID() {
+		return laternenID;
+	}
+
+	public void setLaternenID(int laternenID) {
+		this.laternenID = laternenID;
 	}
 	
 }

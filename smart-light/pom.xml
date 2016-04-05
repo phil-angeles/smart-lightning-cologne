@@ -87,6 +87,12 @@ under the License.
 			<artifactId>flink-clients_2.10</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>13.0.1</version>
+		</dependency>
+		
 	</dependencies>
 
 	<profiles>
@@ -114,6 +120,11 @@ under the License.
 					<artifactId>flink-clients_2.10</artifactId>
 					<version>${flink.version}</version>
 					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+					<version>13.0.1</version>
 				</dependency>
 			</dependencies>
 
