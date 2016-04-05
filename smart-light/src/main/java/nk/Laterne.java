@@ -26,7 +26,7 @@ public class Laterne {
 	 */
 	public static Map<Integer, Laterne> erzeugeLaternen(){
 		Map<Integer, Laterne> laternenListe = new HashMap<>();
-		Integer zaehler = 1;
+		Integer zaehler = 0;
 		
 		for(int index = 0; index < 6000; index++){
 			Laterne laterne = new Laterne();
@@ -34,6 +34,7 @@ public class Laterne {
 			laterne.setVerbrauch(22.0);
 			laterne.setX(randomWithRange(MIN_X, MAX_X));
 			laterne.setY(randomWithRange(MIN_Y, MAX_Y));
+			laterne.setLaternenID(zaehler);
 			
 			laternenListe.put(zaehler.intValue(), laterne);
 			zaehler++;
