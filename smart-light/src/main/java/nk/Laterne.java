@@ -1,7 +1,7 @@
 package nk;
 
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +12,8 @@ public class Laterne {
 	/*
 	 * Attribute
 	*/
+	private static CSVReader reader;
+	private static List<String[]> csvListe;
 	private int laternenID;
 	private double x;
 	private double y;
@@ -24,6 +26,16 @@ public class Laterne {
 	public static final double MIN_Y = 836.601818791716;
 	public static final double MAX_Y = 31921.914833250783;
 	
+	static {
+		try {
+			reader = new CSVReader(new FileReader("src/main/resources/cologne_data.csv"));
+			csvListe = reader.readAll();
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	 * Erzeuge Laternen mit zufaelligen x,y
 	 */
@@ -35,7 +47,7 @@ public class Laterne {
 			Laterne laterne = new Laterne();
 			laterne.setStatus(true);
 			laterne.setVerbrauch(22.0);
-			getKoordinaten(laterne);
+			getKoordinaten(laterne, zaehler);
 			laterne.setLaternenID(zaehler);
 			
 			laternenListe.put(zaehler.intValue(), laterne);
@@ -51,27 +63,10 @@ public class Laterne {
 	}
 	
 	
-	public static Laterne getKoordinaten(Laterne laterne) {
-
-		int size = 1;
-		try {
-			CSVReader reader = new CSVReader(new FileReader("cologne_data.csv"));
-			String[] nextLine;
-			while ((nextLine = reader.readNext()) != null) {
-
-				if (size == (laterne.getLaternenID() * 100)) {
-
-					laterne.setX(Double.parseDouble(nextLine[3]));
-					laterne.setY(Double.parseDouble(nextLine[4]));
-
-					break;
-				}
-				size++;
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public static Laterne getKoordinaten(Laterne laterne, int i) {
+		laterne.setX(Double.parseDouble(csvListe.get(i*100)[3]));
+		laterne.setY(Double.parseDouble(csvListe.get(i*100)[4]));
+			
 		return laterne;
 	}
 	
