@@ -35,7 +35,7 @@ public class Stream {
 	}
 	
 
-	public static void main(String[] args) throws Exception {		
+	public static void streamMethode() throws Exception{		
 	    final StreamExecutionEnvironment env =
 	        StreamExecutionEnvironment.createLocalEnvironment();
 	

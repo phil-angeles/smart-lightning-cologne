@@ -49,7 +49,7 @@ public class MyCSVReader {
 			}
 		}
 		bereich.add(i);
-		System.out.println(bereich.size());
+		//System.out.println(bereich.size());
 	}
 	
 	public List<String[]> zeitbereicheUnterscheiden(int i)
@@ -78,10 +78,7 @@ public class MyCSVReader {
 	}
 	
 	public static void main(String[] args) throws IOException{
-		MyCSVReader reader = new MyCSVReader();
-		reader.listeKuerzen();
-		reader.bereicheBerechnen();
-		reader.zeitbereicheAusgeben(499);
+		
 	}
 	
 	

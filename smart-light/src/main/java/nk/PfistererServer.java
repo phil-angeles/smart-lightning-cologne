@@ -3,6 +3,9 @@ package nk;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+
+import org.apache.commons.io.output.ThresholdingOutputStream;
 
 public class PfistererServer {
 
@@ -10,7 +13,15 @@ public class PfistererServer {
     private static final int port = 9999;
 
     @SuppressWarnings("resource")
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+    	
+    	MyCSVReader reader = new MyCSVReader();
+		reader.listeKuerzen();
+		System.out.println("Liste gelesen");
+		reader.bereicheBerechnen();
+		System.out.println("Reader fertig");
+		//reader.zeitbereicheAusgeben(0);	
+    	
 
         // Listen on a server socket and on connection send some
     	//\n-delimited text to the client
@@ -20,14 +31,19 @@ public class PfistererServer {
 
                 while (true) {
                     Socket clientSocket = serverSocket.accept();
+                    Thread.sleep(3000);
                     PrintWriter out = new
                     	PrintWriter(clientSocket.getOutputStream(), true);
 
-                    for (; true;) {
+                    System.out.println("Ausgabe");
+                    for (int i = 0; i < 499; i++) {
                     	// Hier die Koordinaten ausgeben
-                        out.println("123,6509");
+                    	List<String[]> liste = reader.zeitbereicheUnterscheiden(i);
+                        for(String[] s : liste){
+                        	out.println(s[1] + "," + s[2]);
+                        }
                         out.flush();
-                        Thread.sleep(100);
+                        Thread.sleep(5000);
                     }
                 }
 
@@ -35,5 +51,8 @@ public class PfistererServer {
                 e.printStackTrace();
             }
         }).start(); 
+        
+        Stream.streamMethode();
+        System.out.println("Stream gestartet");
     }
 }
