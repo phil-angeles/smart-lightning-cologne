@@ -5,8 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import org.apache.commons.io.output.ThresholdingOutputStream;
-
 public class PfistererServer {
 
     private static final String host = "localhost";
@@ -52,7 +50,7 @@ public class PfistererServer {
             }
         }).start(); 
         
-        Stream.streamMethode();
-        System.out.println("Stream gestartet");
+        Stream stream = new Stream();
+        stream.streamMethode();
     }
 }

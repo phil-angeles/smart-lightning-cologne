@@ -1,5 +1,6 @@
 package nk;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -8,7 +9,9 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
-public class LaternenCache {
+public class LaternenCache implements Serializable{
+	private static final long serialVersionUID = 5939899563046614321L;
+	
 	private static final long MAX_SIZE = 6000;
 	static Map<Integer, Laterne> laternenListe = new HashMap<>();
 	 
@@ -22,13 +25,11 @@ public class LaternenCache {
 				  
 				@Override
 				public Laterne load(Integer arg0) throws Exception {
-					System.out.println("load");
 					return getLaterneByID().get(arg0);
 				}
 
 				@Override
 				public Map<Integer, Laterne> loadAll(Iterable<? extends Integer> keys) throws Exception {
-					System.out.println("loadAll");
 					return getLaterneByID();
 				}
 			  });
@@ -38,12 +39,10 @@ public class LaternenCache {
 	  
 	  private static Map<Integer, Laterne> getLaterneByID(){
 		  laternenListe = Laterne.erzeugeLaternen();
-		  System.out.println("durchlaufen getLaterneID");
 		  return laternenListe;
 	  }
 	  
 	  public static LoadingCache<Integer, Laterne> getLoadingCache() {
-		    System.out.println("durchlaufen");
 			return cache;
 	  }
 	 

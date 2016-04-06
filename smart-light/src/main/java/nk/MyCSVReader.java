@@ -10,6 +10,7 @@ import com.opencsv.CSVReader;
 
 public class MyCSVReader {
 	private CSVReader csvReader;
+	public static List<String[]> completeList;
 	private List<String[]> reducedList;
 	private List<Integer> bereich;
 	
@@ -24,10 +25,10 @@ public class MyCSVReader {
 	{
 		System.out.println(csvReader.toString()+"");
 		//String[] liste = csvReader.readNext();
-		List<String[]> liste = csvReader.readAll();
+		completeList = csvReader.readAll();
 		//System.out.println(csvReader.getSkipLines() + "");
-		for(int i = 0; i < liste.size(); i++){
-			reducedList.add(new String[]{liste.get(i)[0], liste.get(i)[3], liste.get(i)[4]});
+		for(int i = 0; i < completeList.size(); i++){
+			reducedList.add(new String[]{completeList.get(i)[0], completeList.get(i)[3], completeList.get(i)[4]});
 		}
 		/**for(int i = 0; i < liste.size(); i++)
 		{
@@ -76,10 +77,5 @@ public class MyCSVReader {
 			System.out.println(shortList.get(a)[2]);
 		}
 	}
-	
-	public static void main(String[] args) throws IOException{
-		
-	}
-	
 	
 }
