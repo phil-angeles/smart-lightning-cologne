@@ -27,7 +27,7 @@ Repository for project in 'Neue Konzepte' an der DHBW MA
   - Wir haben uns als relativ realistischen Wert dafür entschieden im ganzen Stadtgebiet 6000 Laternen zu erzeugen. Diese werden folglich per Zufallsprinzip auf den Koordinaten der Autos platziert, die im CSV vorliegen. So ist sichergestellt, dass die Laternen im Stadtgebiet verteilt vorliegen. 
   3.	Einlesen der vorliegenden CSV-Daten über den CSV-Reader
       Es handelt sich an dieser Stelle um die Streaming-Daten von vorbeifahrenden Autos, d.h. Autos die ihre Koordinaten jede Sekunde wechseln etc.
-  4.	Aktuell schickt das Server Socket innerhalb eines Datenstroms alle 400 Sekunden diese Daten an den Client
+  4.	Aktuell schickt das Server Socket innerhalb eines Datenstroms alle 400 Millisekunden diese Daten an den Client
   5.	Der Client mappt die eingegeben Auto-Daten auf neu erzeugte Passanten-Objekte
   6.	Nachfolgenden wird im Datenstrom der Passanten abgeprüft, ob sich Passanten in der Nähe von Laternen befinden. Der Radius, in dem sich Laternen und Passanten treffen können, ist von uns auf 100m festgelegt 
   7.	Gibt es eine Übereinstimmung von einem Passant mit einer Laterne, so wird die Laterne jeweils 1 Sekunde angeschaltet. Nachfolgend wird dieser Prozess iterativ durchgeführt und geprüft, ob sich Passanten im Radius der Laternen befinden.
