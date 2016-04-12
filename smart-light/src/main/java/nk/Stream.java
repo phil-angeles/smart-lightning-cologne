@@ -11,7 +11,7 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
-import com.google.common.cache.LoadingCache;
+import spark.Spark;
 
 public class Stream implements Serializable{
 	
@@ -38,6 +38,7 @@ public class Stream implements Serializable{
 	
 
 	public void streamMethode() throws Exception{		
+		
 	    final StreamExecutionEnvironment env =
 	        StreamExecutionEnvironment.createLocalEnvironment();
 	    	
@@ -59,7 +60,7 @@ public class Stream implements Serializable{
 	                }
 	            });
 	    
-	    AllWindowedStream<Passant, TimeWindow> timeWindowStream  = socketStream.timeWindowAll(Time.seconds(10));
+	    AllWindowedStream<Passant, TimeWindow> timeWindowStream  = socketStream.timeWindowAll(Time.seconds(4));
 	
 	    timeWindowStream.apply (new AllWindowFunction<Passant,Integer, TimeWindow>() {
 			/**

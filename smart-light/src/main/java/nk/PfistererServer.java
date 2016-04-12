@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
+import spark.Spark;
+
 public class PfistererServer {
 
     private static final String host = "localhost";
@@ -12,6 +14,11 @@ public class PfistererServer {
 
     @SuppressWarnings("resource")
     public static void main(String[] args) throws Exception{
+    	
+    	System.out.println("Spark Server gestartet");
+    	Spark.get("/hello", (req, resp) -> {
+    		return "Hello World";
+    	});
     	
     	MyCSVReader reader = new MyCSVReader();
 		reader.listeKuerzen();
@@ -33,7 +40,6 @@ public class PfistererServer {
                     PrintWriter out = new
                     	PrintWriter(clientSocket.getOutputStream(), true);
 
-                    System.out.println("Ausgabe");
                     for (int i = 0; i < 499; i++) {
                     	// Hier die Koordinaten ausgeben
                     	List<String[]> liste = reader.zeitbereicheUnterscheiden(i);
@@ -41,7 +47,7 @@ public class PfistererServer {
                         	out.println(s[1] + "," + s[2]);
                         }
                         out.flush();
-                        //Thread.sleep(100);
+                        Thread.sleep(4000);
                     }
                 }
 

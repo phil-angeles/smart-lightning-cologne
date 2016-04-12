@@ -3,6 +3,8 @@ package nk;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import spark.Spark;
+
 public class LampenAnOderAusClass {
 	private static Map<Integer, Laterne> laternen;
 	
@@ -10,6 +12,7 @@ public class LampenAnOderAusClass {
 	
 	static {
 		laternen = Laterne.erzeugeLaternen();
+		Spark.get("/hello", (req, res) -> "Hello World");
 	}
 	
 	public static void isInDistance(double x, double y) throws ExecutionException {
