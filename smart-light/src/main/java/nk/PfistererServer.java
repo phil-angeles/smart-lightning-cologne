@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
+import spark.Request;
+import spark.Response;
+import spark.Route;
 import spark.Spark;
 
 public class PfistererServer {
@@ -16,9 +19,14 @@ public class PfistererServer {
     public static void main(String[] args) throws Exception{
     	
     	System.out.println("Spark Server gestartet");
-    	Spark.get("/hello", (req, resp) -> {
-    		return "Hello World";
-    	});
+    	Spark.get("/hello", new Route() {
+			
+			@Override
+			public Object handle(Request arg0, Response arg1) throws Exception {
+				// TODO Auto-generated method stub
+				return "Hello World";
+			}
+		});
     	
     	MyCSVReader reader = new MyCSVReader();
 		reader.listeKuerzen();
