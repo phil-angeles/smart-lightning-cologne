@@ -16,18 +16,7 @@ public class PfistererServer {
     private static final int port = 9999;
 
     @SuppressWarnings("resource")
-    public static void main(String[] args) throws Exception{
-    	
-    	System.out.println("Spark Server gestartet");
-    	Spark.get("/hello", new Route() {
-			
-			@Override
-			public Object handle(Request arg0, Response arg1) throws Exception {
-				// TODO Auto-generated method stub
-				return "Hello World";
-			}
-		});
-    	
+    public static void main(String[] args) throws Exception{    	
     	MyCSVReader reader = new MyCSVReader();
 		reader.listeKuerzen();
 		System.out.println("Liste gelesen");

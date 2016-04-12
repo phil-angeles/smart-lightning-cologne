@@ -71,10 +71,10 @@ public class Stream implements Serializable{
 			@Override
 			public void apply(TimeWindow window, Iterable<Passant> passanten, Collector<Integer> out) throws Exception {
 				System.out.println("\nZwischen " + window.getStart() + " und " + window.getEnd() + " gab es folgende Koordinaten: ");
+				LampenAnOderAusClass.disableLaternen();
 				for(Passant p : passanten){
 					LampenAnOderAusClass.isInDistance(p.x, p.y);
 				}
-				LampenAnOderAusClass.disableLaternen();
 			}
 	    });
 	    

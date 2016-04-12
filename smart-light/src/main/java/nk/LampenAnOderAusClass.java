@@ -3,6 +3,9 @@ package nk;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONObject;
+
 import spark.Spark;
 
 public class LampenAnOderAusClass {
@@ -12,7 +15,26 @@ public class LampenAnOderAusClass {
 	
 	static {
 		laternen = Laterne.erzeugeLaternen();
-		Spark.get("/hello", (req, res) -> "Hello World");
+		Spark.get("/getLaternenPositionen", (req, res) -> {
+			JSONArray jarray = new JSONArray();
+			for(int index = 1; index < laternen.size(); index++){
+				JSONObject jobj = new JSONObject();
+				jobj.put("ID", laternen.get(index).getLaternenID());
+				jobj.put("X", laternen.get(index).getX());
+				jobj.put("Y", laternen.get(index).getY());
+				jarray.put(jobj);
+			}
+			return jarray;
+		});
+		Spark.get("/getLaternenAn", (req, res) -> {
+			JSONArray jarray = new JSONArray();
+			for(int index = 1; index < laternen.size(); index++){
+				if(laternen.get(index).isStatus()){
+					jarray.put(laternen.get(index).getLaternenID());
+				}
+			}
+			return jarray;
+		});
 	}
 	
 	public static void isInDistance(double x, double y) throws ExecutionException {
