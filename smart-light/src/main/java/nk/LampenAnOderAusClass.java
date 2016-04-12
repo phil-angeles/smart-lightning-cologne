@@ -12,20 +12,24 @@ public class LampenAnOderAusClass {
 		laternen = Laterne.erzeugeLaternen();
 	}
 	
-	public static boolean isInDistance(double x, double y) throws ExecutionException {
-		boolean ergebnis = false;
+	public static void isInDistance(double x, double y) throws ExecutionException {
 		int num = 0;
 		for(int index = 1; index < laternen.size(); index++){
 			double distanz = Math.sqrt(Math.pow(x-laternen.get(index).getX(), 2)+Math.pow(y-laternen.get(index).getY(), 2));
-			if(distanz < 100 ){
+			if(distanz < 100 &&  !laternen.get(index).isStatus()){
 				//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
 				// Lampe anmachen
-				ergebnis = true;
+				laternen.get(index).setStatus(true);
 				num++;
 				aktiviertZeit++;
 			}
 		}
 		System.out.println(aktiviertZeit);
-		return ergebnis;
+	}
+	
+	public static void disableLaternen(){
+		for(int index = 1; index < laternen.size(); index++){
+			laternen.get(index).setStatus(false);
+		}
 	}
 }

@@ -38,7 +38,7 @@ public class Laterne {
 		
 		for(int index = 0; index < 6000; index++){
 			Laterne laterne = new Laterne();
-			laterne.setStatus(true);
+			laterne.setStatus(false);
 			laterne.setVerbrauch(22.0);
 			getKoordinaten(laterne, zaehler);
 			laterne.setLaternenID(zaehler);

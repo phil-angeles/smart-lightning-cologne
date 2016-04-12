@@ -71,8 +71,9 @@ public class Stream implements Serializable{
 			public void apply(TimeWindow window, Iterable<Passant> passanten, Collector<Integer> out) throws Exception {
 				System.out.println("\nZwischen " + window.getStart() + " und " + window.getEnd() + " gab es folgende Koordinaten: ");
 				for(Passant p : passanten){
-					if(LampenAnOderAusClass.isInDistance(p.x, p.y)){}
+					LampenAnOderAusClass.isInDistance(p.x, p.y);
 				}
+				LampenAnOderAusClass.disableLaternen();
 			}
 	    });
 	    
