@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutionException;
 public class LampenAnOderAusClass {
 	private static Map<Integer, Laterne> laternen;
 	
+	public static int aktiviertZeit = 0;
+	
 	static {
 		laternen = Laterne.erzeugeLaternen();
 	}
@@ -20,9 +22,10 @@ public class LampenAnOderAusClass {
 				// Lampe anmachen
 				ergebnis = true;
 				num++;
+				aktiviertZeit++;
 			}
 		}
-		System.out.println(num + " Laternen sind in der Nähe von dieser Person");
+		System.out.println(aktiviertZeit);
 		return ergebnis;
 	}
 }

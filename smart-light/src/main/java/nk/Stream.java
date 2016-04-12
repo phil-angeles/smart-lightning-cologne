@@ -59,7 +59,7 @@ public class Stream implements Serializable{
 	                }
 	            });
 	    
-	    AllWindowedStream<Passant, TimeWindow> timeWindowStream  = socketStream.timeWindowAll(Time.seconds(5));
+	    AllWindowedStream<Passant, TimeWindow> timeWindowStream  = socketStream.timeWindowAll(Time.seconds(10));
 	
 	    timeWindowStream.apply (new AllWindowFunction<Passant,Integer, TimeWindow>() {
 			/**

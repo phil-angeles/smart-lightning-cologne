@@ -41,7 +41,7 @@ public class PfistererServer {
                         	out.println(s[1] + "," + s[2]);
                         }
                         out.flush();
-                        Thread.sleep(5000);
+                        //Thread.sleep(100);
                     }
                 }
 
