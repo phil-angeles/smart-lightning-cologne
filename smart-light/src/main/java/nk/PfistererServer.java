@@ -5,11 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-
 public class PfistererServer {
 
     private static final String host = "localhost";
@@ -44,7 +39,7 @@ public class PfistererServer {
                         	out.println(s[1] + "," + s[2]);
                         }
                         out.flush();
-                        Thread.sleep(4000);
+                        Thread.sleep(Stream.WAITTIME);
                     }
                 }
 

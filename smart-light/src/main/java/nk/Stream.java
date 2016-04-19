@@ -11,28 +11,27 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
-import spark.Spark;
-
 public class Stream implements Serializable{
-	
+	public static final int WAITTIME = 2000;
 	
 	public static class Passant implements Serializable {
-
+		
+		
 		private static final long serialVersionUID = 5057669295633869950L;
-		public Double x;
-	    public Double y;
+		public Double lat;
+	    public Double lon;
 
 	    public Passant() {
 	    }
 
-	    public Passant(Double x, Double y) {
-	        this.x = y;
-	        this.y = y;
+	    public Passant(Double lat, Double lon) {
+	        this.lat = lat;
+	        this.lon = lon;
 	    }
 
 		@Override
 		public String toString() {
-			return "X: " + x + " - Y: " + y;
+			return "Lat: " + lat + " - Lon: " + lon;
 		}
 	}
 	
@@ -60,7 +59,7 @@ public class Stream implements Serializable{
 	                }
 	            });
 	    
-	    AllWindowedStream<Passant, TimeWindow> timeWindowStream  = socketStream.timeWindowAll(Time.seconds(4));
+	    AllWindowedStream<Passant, TimeWindow> timeWindowStream  = socketStream.timeWindowAll(Time.milliseconds(WAITTIME));
 	
 	    timeWindowStream.apply (new AllWindowFunction<Passant,Integer, TimeWindow>() {
 			/**
@@ -70,14 +69,14 @@ public class Stream implements Serializable{
 
 			@Override
 			public void apply(TimeWindow window, Iterable<Passant> passanten, Collector<Integer> out) throws Exception {
-				System.out.println("\nZwischen " + window.getStart() + " und " + window.getEnd() + " gab es folgende Koordinaten: ");
+				System.out.println("\nAktive Zeit insgesamt zwischen " + window.getStart() + " und " + window.getEnd());
 				LampenAnOderAusClass.disableLaternen();
 				for(Passant p : passanten){
-					LampenAnOderAusClass.isInDistance(p.x, p.y);
+					LampenAnOderAusClass.isInDistance(p.lat, p.lon);
 				}
 			}
 	    });
 	    
-	    env.execute("Stock stream");
+	    env.execute("Lighting stream");
 	}
 }
