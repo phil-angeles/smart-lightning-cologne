@@ -21,19 +21,20 @@ public class LampenAnOderAusClass {
 			JSONArray jarray = new JSONArray();
 			for(int index = 1; index < laternen.size(); index++){
 				JSONObject jobj = new JSONObject();
-				jobj.put("ID", laternen.get(index).getLaternenID());
 				jobj.put("lat", laternen.get(index).getLat());
 				jobj.put("lon", laternen.get(index).getLon());
 				jarray.put(jobj);
 			}
 			return jarray;
 		});
-		Spark.get("/getLaternenAn", (req, res) -> {
+		Spark.get("/getLaternen", (req, res) -> {
 			JSONArray jarray = new JSONArray();
 			for(int index = 1; index < laternen.size(); index++){
-				if(laternen.get(index).isStatus()){
-					jarray.put(laternen.get(index).getLaternenID());
-				}
+				JSONObject jobj = new JSONObject();
+				jobj.put("lat", laternen.get(index).getLat());
+				jobj.put("lon", laternen.get(index).getLon());
+				jobj.put("an", laternen.get(index).isStatus());
+				jarray.put(jobj);
 			}
 			return jarray;
 		});

@@ -40,7 +40,7 @@ public class Stream implements Serializable{
 	public void streamMethode() throws Exception{		
 		
 	    final StreamExecutionEnvironment env =
-	        StreamExecutionEnvironment.createLocalEnvironment(8);
+	        StreamExecutionEnvironment.createLocalEnvironment(2);
 	    	
 	    //Read from a socket stream at map it to Passant objects
 	    DataStream<Passant> socketStream = env
