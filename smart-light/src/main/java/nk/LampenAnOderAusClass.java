@@ -38,50 +38,15 @@ public class LampenAnOderAusClass {
 	}
 	
 	public static void isInDistance(double lat, double lon) throws ExecutionException {
-		new Thread(() -> {
-			for(int index = 1; index < laternen.size()/4; index++){
-				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
-				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
-					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
-					// Lampe anmachen
-					laternen.get(index).setStatus(true);
-					aktiviertZeit++;
-				}
+		for(int index = 1; index < laternen.size(); index++){
+			double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
+			if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
+				//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
+				// Lampe anmachen
+				laternen.get(index).setStatus(true);
+				aktiviertZeit++;
 			}
-		}).start();
-		new Thread(() -> {
-			for(int index = laternen.size()/4; index < laternen.size()/2; index++){
-				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
-				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
-					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
-					// Lampe anmachen
-					laternen.get(index).setStatus(true);
-					aktiviertZeit++;
-				}
-			}
-		}).start();
-		new Thread(() -> {
-			for(int index = laternen.size()/2; index < (laternen.size()/2) + (laternen.size()/4); index++){
-				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
-				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
-					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
-					// Lampe anmachen
-					laternen.get(index).setStatus(true);
-					aktiviertZeit++;
-				}
-			}
-		}).start();
-		new Thread(() -> {
-			for(int index = (laternen.size()/2) + (laternen.size()/4); index < laternen.size(); index++){
-				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
-				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
-					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
-					// Lampe anmachen
-					laternen.get(index).setStatus(true);
-					aktiviertZeit++;
-				}
-			}
-		}).start();
+		}
 	}
 	
 	public static double distanceInKm(double lat1, double lon1, double lat2, double lon2) {
