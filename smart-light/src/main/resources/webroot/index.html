@@ -27,27 +27,28 @@
 			id: 'mapbox.streets'
 		}).addTo(mymap);
 		
-		var t = setInterval(laternenAktualisieren, 8000);
+		var t = setInterval(laternenAktualisieren, 5000);
 
-		var layer = {};
+		var laternen = [];
 		function laternenAktualisieren(){
-			if(layer != {}){
-				mymap.removeLayer(layer);
-			}			var laternen = [];
-
 			$.getJSON( "getLaternen", {}).done(function( data ) {
+				for(i = 0; i < laternen.length; i++){
+					mymap.removeLayer(laternen[i]);
+				}		
+				laternen = [];
 				$.each(data, function(key, val) {
 					var col = val.an ? "green": "red";
-					laternen.push(L.circle([val.lat, val.lon], 30, {
+					var laterne = new L.circle([val.lat, val.lon], 50, {
 						color: col,
 						fillColor: '#f03',
 						fillOpacity: 0.5
-					}));
+					});
+					laternen.push(laterne);
+					mymap.addLayer(laterne);
 				}); 
 			}).fail(function() {
 	    		console.log( "error" );
 	  		});
-			L.layerGroup(laternen).addTo(mymap)
 		}
 			
 	</script>
