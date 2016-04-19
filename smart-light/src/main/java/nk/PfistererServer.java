@@ -6,8 +6,6 @@ import java.net.Socket;
 import java.util.List;
 
 public class PfistererServer {
-
-    private static final String host = "localhost";
     private static final int port = 9999;
 
     @SuppressWarnings("resource")

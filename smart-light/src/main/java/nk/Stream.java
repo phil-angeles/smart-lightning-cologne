@@ -12,6 +12,7 @@ import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
 public class Stream implements Serializable{
+	private static final long serialVersionUID = -6849652885122711975L;
 	public static final int WAITTIME = 2000;
 	
 	public static class Passant implements Serializable {
