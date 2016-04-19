@@ -8,8 +8,8 @@ public class Laterne {
 	 * Attribute
 	*/
 	private int laternenID;
-	private double x;
-	private double y;
+	private double lat;
+	private double lon;
 	private double verbrauch;
 	private double leuchtdauer = 0;
 	private boolean status;
@@ -18,16 +18,6 @@ public class Laterne {
 	public static final double MAX_X = 25520.067777469932;
 	public static final double MIN_Y = 836.601818791716;
 	public static final double MAX_Y = 31921.914833250783;
-	
-	static {
-//		try {
-//			//reader = new CSVReader(new FileReader("src/main/resources/cologne_data.csv"));
-//			//csvListe = reader.readAll();
-//			//reader.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-	}
 	
 	/*
 	 * Erzeuge Laternen mit zufaelligen x,y
@@ -57,8 +47,8 @@ public class Laterne {
 	
 	
 	public static Laterne getKoordinaten(Laterne laterne, int i) {
-		laterne.setX(Double.parseDouble(MyCSVReader.completeList.get(i*100)[3]));
-		laterne.setY(Double.parseDouble(MyCSVReader.completeList.get(i*100)[4]));
+		laterne.setLat(Double.parseDouble(MyCSVReader.completeList.get(i*100)[3]));
+		laterne.setLon(Double.parseDouble(MyCSVReader.completeList.get(i*100)[4]));
 			
 		return laterne;
 	}
@@ -68,20 +58,20 @@ public class Laterne {
 	 * getter, setter
 	 */
 
-	public double getX() {
-		return x;
+	public double getLat() {
+		return lat;
 	}
 
-	public void setX(double x) {
-		this.x = x;
+	public void setLat(double lat) {
+		this.lat = lat;
 	}
 
-	public double getY() {
-		return y;
+	public double getLon() {
+		return lon;
 	}
 
-	public void setY(double y) {
-		this.y = y;
+	public void setLon(double lon) {
+		this.lon = lon;
 	}
 
 	public double getVerbrauch() {

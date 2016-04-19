@@ -22,8 +22,8 @@ public class LampenAnOderAusClass {
 			for(int index = 1; index < laternen.size(); index++){
 				JSONObject jobj = new JSONObject();
 				jobj.put("ID", laternen.get(index).getLaternenID());
-				jobj.put("X", laternen.get(index).getX());
-				jobj.put("Y", laternen.get(index).getY());
+				jobj.put("lat", laternen.get(index).getLat());
+				jobj.put("lon", laternen.get(index).getLon());
 				jarray.put(jobj);
 			}
 			return jarray;
@@ -39,19 +39,67 @@ public class LampenAnOderAusClass {
 		});
 	}
 	
-	public static void isInDistance(double x, double y) throws ExecutionException {
-		int num = 0;
-		for(int index = 1; index < laternen.size(); index++){
-			double distanz = Math.sqrt(Math.pow(x-laternen.get(index).getX(), 2)+Math.pow(y-laternen.get(index).getY(), 2));
-			if(distanz < 100 &&  !laternen.get(index).isStatus()){
-				//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
-				// Lampe anmachen
-				laternen.get(index).setStatus(true);
-				num++;
-				aktiviertZeit++;
+	public static void isInDistance(double lat, double lon) throws ExecutionException {
+		new Thread(() -> {
+			for(int index = 1; index < laternen.size()/4; index++){
+				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
+				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
+					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
+					// Lampe anmachen
+					laternen.get(index).setStatus(true);
+					aktiviertZeit++;
+				}
 			}
-		}
-		System.out.println(aktiviertZeit);
+		}).start();
+		new Thread(() -> {
+			for(int index = laternen.size()/4; index < laternen.size()/2; index++){
+				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
+				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
+					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
+					// Lampe anmachen
+					laternen.get(index).setStatus(true);
+					aktiviertZeit++;
+				}
+			}
+		}).start();
+		new Thread(() -> {
+			for(int index = laternen.size()/2; index < (laternen.size()/2) + (laternen.size()/4); index++){
+				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
+				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
+					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
+					// Lampe anmachen
+					laternen.get(index).setStatus(true);
+					aktiviertZeit++;
+				}
+			}
+		}).start();
+		new Thread(() -> {
+			for(int index = (laternen.size()/2) + (laternen.size()/4); index < laternen.size(); index++){
+				double distanz = distanceInKm(lat, lon, laternen.get(index).getLat(), laternen.get(index).getLon());
+				if(distanz < 0.1 &&  !laternen.get(index).isStatus()){
+					//System.out.println(x + " " + y + " in der Nähe von " + laternen.get(index).getX() + " " + laternen.get(index).getY());
+					// Lampe anmachen
+					laternen.get(index).setStatus(true);
+					aktiviertZeit++;
+				}
+			}
+		}).start();
+	}
+	
+	public static double distanceInKm(double lat1, double lon1, double lat2, double lon2) {
+	    int radius = 6371;
+
+	    double lat = Math.toRadians(lat2 - lat1);
+	    double lon = Math.toRadians(lon2- lon1);
+	    
+	    double latSin = Math.sin(lat / 2);
+	    double lonSin = Math.sin(lon / 2);
+	    
+	    double a = latSin * latSin + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * lonSin * lonSin;
+	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	    double d = radius * c;
+
+	    return Math.abs(d);
 	}
 	
 	public static void disableLaternen(){

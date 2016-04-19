@@ -14,7 +14,7 @@ public class MyCSVReader {
 	
 	public MyCSVReader() throws IOException
 	{
-		csvReader = new CSVReader(new FileReader("src/main/resources/cologne_data.csv"), ',' , '\'', 1);
+		csvReader = new CSVReader(new FileReader("src/main/resources/cologne_data_neu.csv"), ',' , '\'', 1);
 		reducedList = new ArrayList<String[]>();
 		bereich = new ArrayList<Integer>();
 	}
