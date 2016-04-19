@@ -15,6 +15,8 @@ public class LampenAnOderAusClass {
 	
 	static {
 		laternen = Laterne.erzeugeLaternen();
+		
+		Spark.externalStaticFileLocation("src/main/resources/webroot");
 		Spark.get("/getLaternenPositionen", (req, res) -> {
 			JSONArray jarray = new JSONArray();
 			for(int index = 1; index < laternen.size(); index++){

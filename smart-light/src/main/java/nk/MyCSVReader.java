@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.opencsv.CSVReader;
 
-
-
 public class MyCSVReader {
 	private CSVReader csvReader;
 	public static List<String[]> completeList;
