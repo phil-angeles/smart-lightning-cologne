@@ -25,14 +25,14 @@
 			id: 'mapbox.streets'
 		}).addTo(mymap);
 		
-		var t = setInterval(laternenAktualisieren, 1500);
+		var t = setInterval(laternenAktualisieren, 8000);
 
 		var layer = {};
 		function laternenAktualisieren(){
 			if(layer != {}){
 				mymap.removeLayer(layer);
-			}
-			var laternen = [];
+			}			var laternen = [];
+
 			$.getJSON( "getLaternen", {}).done(function( data ) {
 				$.each(data, function(key, val) {
 					var col = val.an ? "green": "red";
@@ -45,7 +45,7 @@
 			}).fail(function() {
 	    		console.log( "error" );
 	  		});
-			L.layerGroup(laternen).addTo(mymap);
+			L.layerGroup(laternen).addTo(mymap)
 		}
 			
 	</script>
