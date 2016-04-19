@@ -46,9 +46,6 @@ public class Stream implements Serializable{
 	    DataStream<Passant> socketStream = env
 	            .socketTextStream("localhost", 9999)
 	            .map(new MapFunction<String, Passant>() {
-	                /**
-					 * 
-					 */
 					private static final long serialVersionUID = -392827836269632226L;
 					private String[] tokens;
 	
@@ -62,19 +59,16 @@ public class Stream implements Serializable{
 	    
 	    AllWindowedStream<Passant, TimeWindow> timeWindowStream  = socketStream.timeWindowAll(Time.milliseconds(WAITTIME));
 	
-	    timeWindowStream.apply (new AllWindowFunction<Passant,Integer, TimeWindow>() {
-			/**
-			 * 
-			 */
+	    timeWindowStream.apply(new AllWindowFunction<Passant,Integer, TimeWindow>() {
 			private static final long serialVersionUID = -1100458040685523280L;
 
 			@Override
 			public void apply(TimeWindow window, Iterable<Passant> passanten, Collector<Integer> out) throws Exception {
-				System.out.println("\nAktive Zeit insgesamt zwischen " + window.getStart() + " und " + window.getEnd());
 				LampenAnOderAusClass.disableLaternen();
 				for(Passant p : passanten){
 					LampenAnOderAusClass.isInDistance(p.lat, p.lon);
 				}
+				System.out.println(LampenAnOderAusClass.aktiviertZeit);
 			}
 	    });
 	    
