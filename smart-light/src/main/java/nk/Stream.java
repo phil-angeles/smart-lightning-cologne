@@ -13,11 +13,10 @@ import org.apache.flink.util.Collector;
 
 public class Stream implements Serializable{
 	private static final long serialVersionUID = -6849652885122711975L;
-	public static final int WAITTIME = 1500;
+	public static final int WAITTIME = 500;
 	
-	public static class Passant implements Serializable {
-		
-		
+	
+	public class Passant implements Serializable {
 		private static final long serialVersionUID = 5057669295633869950L;
 		public Double lat;
 	    public Double lon;
@@ -37,10 +36,10 @@ public class Stream implements Serializable{
 	}
 	
 
-	public void streamMethode() throws Exception{		
+	public void start() {		
 		
 	    final StreamExecutionEnvironment env =
-	        StreamExecutionEnvironment.createLocalEnvironment(2);
+	        StreamExecutionEnvironment.createLocalEnvironment(4);
 	    	
 	    //Read from a socket stream at map it to Passant objects
 	    DataStream<Passant> socketStream = env
@@ -64,14 +63,26 @@ public class Stream implements Serializable{
 
 			@Override
 			public void apply(TimeWindow window, Iterable<Passant> passanten, Collector<Integer> out) throws Exception {
-				LampenAnOderAusClass.disableLaternen();
+				// Laternen abschalten
+				LaternenVerwaltung.disableLaternen();
+				
+				// Die Laternen anschalten, in deren Nähe ein Passant ist
 				for(Passant p : passanten){
-					LampenAnOderAusClass.isInDistance(p.lat, p.lon);
+					LaternenVerwaltung.checkLighting(p.lat, p.lon);
 				}
-				System.out.println(LampenAnOderAusClass.aktiviertZeit);
+				
+				// Rückgabearray zusammenbauen
+				LaternenVerwaltung.buildLaternenArray();
+				
+				// Gesamte Zeit, die alle Laternen zusammen aktiviert waren
+				System.out.println(LaternenVerwaltung.aktiviertZeit);
 			}
 	    });
 	    
-	    env.execute("Lighting stream");
+	    try {
+			env.execute("Lighting stream");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

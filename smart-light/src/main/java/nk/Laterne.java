@@ -10,31 +10,22 @@ public class Laterne {
 	private int laternenID;
 	private double lat;
 	private double lon;
-	private double verbrauch;
-	private double leuchtdauer = 0;
 	private boolean status;
 	
-	public static final double MIN_X = 3553.599309083569;
-	public static final double MAX_X = 25520.067777469932;
-	public static final double MIN_Y = 836.601818791716;
-	public static final double MAX_Y = 31921.914833250783;
-	
 	/*
-	 * Erzeuge Laternen mit zufaelligen x,y
+	 * Erzeuge Laternen auf den Fahrzeugpositionen 100, 200, 300,...
 	 */
 	public static Map<Integer, Laterne> erzeugeLaternen(){
 		Map<Integer, Laterne> laternenListe = new HashMap<>();
-		Integer zaehler = 1;
 		
-		for(int index = 0; index < 6000; index++){
+		for(int i = 0; i < 6000; i++){
 			Laterne laterne = new Laterne();
 			laterne.setStatus(false);
-			laterne.setVerbrauch(22.0);
-			getKoordinaten(laterne, zaehler);
-			laterne.setLaternenID(zaehler);
+			laterne.setLat(Double.parseDouble(MyCSVReader.completeList.get(i*100)[3]));
+			laterne.setLon(Double.parseDouble(MyCSVReader.completeList.get(i*100)[4]));
+			laterne.setLaternenID(i);
 			
-			laternenListe.put(zaehler.intValue(), laterne);
-			zaehler++;
+			laternenListe.put(i, laterne);
 		}
 		return laternenListe;
 	}
@@ -43,14 +34,6 @@ public class Laterne {
 	{
 		double range = (max - min) + 1;     
 		return (double) (Math.random() * range) + min;
-	}
-	
-	
-	public static Laterne getKoordinaten(Laterne laterne, int i) {
-		laterne.setLat(Double.parseDouble(MyCSVReader.completeList.get(i*100)[3]));
-		laterne.setLon(Double.parseDouble(MyCSVReader.completeList.get(i*100)[4]));
-			
-		return laterne;
 	}
 	
 	
@@ -74,21 +57,6 @@ public class Laterne {
 		this.lon = lon;
 	}
 
-	public double getVerbrauch() {
-		return verbrauch;
-	}
-
-	public void setVerbrauch(double verbrauch) {
-		this.verbrauch = verbrauch;
-	}
-
-	public double getLeuchtdauer() {
-		return leuchtdauer;
-	}
-
-	public void setLeuchtdauer(double leuchtdauer) {
-		this.leuchtdauer = leuchtdauer;
-	}
 
 	public boolean isStatus() {
 		return status;
