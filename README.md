@@ -46,3 +46,6 @@ Repository for project in 'Neue Konzepte' an der DHBW MA
 
 ##### Präsentation
   http://slides.com/flexon94/deck-1#/
+  
+##### Video auf Youtube
+https://youtu.be/rK4X9ldFf90  
