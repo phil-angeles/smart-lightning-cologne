@@ -45,7 +45,10 @@ Repository for project in 'Neue Konzepte' an der DHBW MA
   - Nachhaltige Lösung
 
 ##### Präsentation
-  http://slides.com/flexon94/deck-1#/
+Link:
+https://github.com/phil-angeles/smart-lightning-cologne/blob/master/Praesentation.html
+Live Preview:
+https://rawgit.com/phil-angeles/smart-lightning-cologne/master/Praesentation.html
   
 ##### Video auf Youtube
 https://youtu.be/rK4X9ldFf90  
