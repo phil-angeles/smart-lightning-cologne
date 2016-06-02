@@ -53,3 +53,6 @@ https://rawgit.com/phil-angeles/smart-lightning-cologne/master/Praesentation.htm
   
 ##### Video auf Youtube
 https://youtu.be/rK4X9ldFf90  
+
+### Lizenz
+Das Repository steht unter der Creative Commons Lizenz: http://creativecommons.org/licenses/by-nc-sa/3.0/
